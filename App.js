@@ -1,20 +1,32 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { createStackNavigator } from "react-navigation-stack";
+import { createAppContainer } from "react-navigation";
+import Registerscreen from "./src/Screens/Registerscreen";
+import HomeScreen from "./src/Screens/HomeScreen";
+import LoginScreen from "./src/Screens/LoginScreen";
+import IntroScreen from "./src/Screens/IntroScreen";
+import GeoLocation from "./src/Screens/GeoLocation";
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+const navigator = createStackNavigator(
+  {
+    Home: HomeScreen,
+    Register: Registerscreen,
+    Login:LoginScreen,
+    Introduction:IntroScreen,
+    Gps:GeoLocation
   },
-});
+  {
+    initialRouteName: "Gps",
+    defaultNavigationOptions: {
+      title: "Home",
+      headerStyle: {
+        backgroundColor: "#0000FF",
+      },
+      headerTintColor: "#fff",
+      headerBackTitleStyle: {
+        fontWeight: "bold",
+      
+      },
+    },
+  }
+);
+export default createAppContainer(navigator);
