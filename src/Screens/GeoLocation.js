@@ -43,7 +43,7 @@ origin={pickupCords}
 destination={droplocationCords}
 apiKey={GOOGLE_MAP_API}
 strokeWidth={3}
-strokeColor="hotpink"
+strokeColor="red"
 optimizeWaypoints={true}
 onReady={result=>{
   mapRef.current.fitToCoordinates(result.coordinates,{edgePadding:{
