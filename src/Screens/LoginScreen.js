@@ -2,6 +2,8 @@ import { View,Text,StyleSheet,TouchableOpacity,TextInput ,Image} from "react-nat
 import React, {useState} from "react";
 import {firebase} from "../firebase/config";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import { Feather } from '@expo/vector-icons';
+
 
 
 
@@ -9,10 +11,11 @@ const LoginScreen=({navigation})=>{
     const [email,setEmail]= useState("")
     const [password,setPassword]=useState("")
 
-loginUser= async(email, password)=>{
+const loginUser= async(email, password)=>{
     try {
        await firebase.auth().signInWithEmailAndPassword(email,password)
        navigation.navigate("Home")
+       
     } catch (error) {
       alert(error.message)  
     }
@@ -20,12 +23,15 @@ loginUser= async(email, password)=>{
 
     return(
         <View style={styles.container}>
+
+<View style={styles.header}>
+				</View>
+
         <KeyboardAwareScrollView
             style={{ flex: 1, width: '100%' }}
             keyboardShouldPersistTaps="always">
 
-
-<Image source={require("../../assets/register.jpg")} style ={styles.img}/>
+<Text>Already have an account? Login here</Text>
 
             <TextInput
                 style={styles.input}
@@ -44,11 +50,14 @@ loginUser= async(email, password)=>{
                 underlineColorAndroid="transparent"
                 autoCapitalize="none"
             />
+            
             <TouchableOpacity
                 style={styles.button}
                 onPress={() => loginUser(email,password)}>
                 <Text style={styles.buttonTitle}>Log in</Text>
             </TouchableOpacity>
+
+
             <View style={styles.footerView}>
                 <Text style={styles.footerText}>Don't have an account? <Text onPress={()=>navigation.navigate("Register")} style={styles.footerLink}>Sign up</Text></Text>
             </View>
@@ -120,5 +129,10 @@ const styles=StyleSheet.create({
         borderRadius: 5,
         height: "100%",
         marginTop:5
-    }
+    },
+    header:{
+		height:"10%",
+		backgroundColor:"#fff",
+		
+	}
 })

@@ -45,6 +45,12 @@ function IntroScreen({navigation}) {
 
   return (
     <SafeAreaView style={styles.container}>
+
+<View style={styles.header}>
+  <Text style={styles.headerText}>Thank You For Choosing To Travel With Us.Travel At Your Comfort</Text>
+				</View>
+
+
       <View style={styles.wrap}>
         <ScrollView
           onScroll={({ nativeEvent }) => onChange(nativeEvent)}
@@ -58,7 +64,7 @@ function IntroScreen({navigation}) {
               key={e}
               resizeMode="stretch"
               style={styles.wrap}
-              source={{ url: e }}
+              source={{ uri: e }}
             />
           ))}
         </ScrollView>
@@ -75,7 +81,7 @@ function IntroScreen({navigation}) {
       </View>
 
       <View>
-        <Text style={styles.introText}>Online Bus Booking</Text>
+        <Text style={styles.introText}>Welcome Aboard</Text>
         <Text style={styles.text}>
           Search and compare real time prices from multiple bus operators around
           kenya
@@ -93,7 +99,7 @@ function IntroScreen({navigation}) {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity onPress={()=>navigation.navigate("Home")}>
+      <TouchableOpacity onPress={()=>navigation.navigate("Drawer")}>
         <Text style={styles.skip}>Skip</Text>
       </TouchableOpacity>
     </SafeAreaView>
@@ -102,7 +108,7 @@ function IntroScreen({navigation}) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#0000FF",
+    backgroundColor: "#2346FF",
     height: "100%",
   },
   dotActive: {
@@ -176,7 +182,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   introText: {
-    fontSize: 50,
+    fontSize: 30,
     color: "#fff",
     textAlign: "center",
     fontWeight: "bold",
@@ -190,6 +196,18 @@ const styles = StyleSheet.create({
     paddingLeft: 30,
     borderBottomEndRadius: 10,
   },
+  header:{
+		height:"10%",
+		backgroundColor:"#fff",
+		
+	},
+  headerText:{
+    textAlign:"center",
+    marginTop:30,
+    fontSize:20,
+    backgroundColor:"#2346FF",
+    
+  }
 });
 
 export default IntroScreen;

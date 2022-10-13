@@ -4,12 +4,13 @@
     "slug": "Bus-lite",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/adapt.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/image2.png",
+      "image": "./assets/splush2.png",
       "resizeMode": "contain",
-      "backgroundColor": "#0000FF"
+      "backgroundColor": "#2346FF",
+      "color":"#FFFFFF"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -18,16 +19,31 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/splash.png",
+        "backgroundColor": "#FFFFFF",
+        "supportsTablet": true,
+        "bundleIdentifier":"Bus-lite",
+        "config":{
+          "googleMapsApiKey":"AIzaSyAAnbDKQkrpYflkv0Fy26A5eqfRXYCy__I"
+        }
+      }
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/splash.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package":"Bus-lite",
+      "config":{
+        "googleMaps":{
+          "apikey":"AIzaSyAAnbDKQkrpYflkv0Fy26A5eqfRXYCy__I"
+        }
+      },
+      "permission":["ACCESS_COARSE_LOCATION","ACCESS_FINE_LOCATION","FORGROUND_SERVICE"]
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/adapt.png"
     }
   }
 }
