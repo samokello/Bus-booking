@@ -6,6 +6,8 @@ import Notifications from "./src/Screens/Notification";
 import Registerscreen from "./src/Screens/Registerscreen";
 import LoginScreen from "./src/Screens/LoginScreen";
 import CalendarScreen from "./src/Screens/Calendar";
+import AboutScreen from "./src/Screens/AboutScreen";
+
 
 const navigator = createStackNavigator(
   {
@@ -14,7 +16,9 @@ const navigator = createStackNavigator(
     Introduction:IntroScreen,
     Register:Registerscreen,
     Login:LoginScreen,
-    Calendar:CalendarScreen
+    Calendar:CalendarScreen,
+    About:AboutScreen
+  
    
   },
 

@@ -1,267 +1,230 @@
-import React, { useState } from "react";
 import {
-	Text,
 	View,
+	Text,
 	StyleSheet,
-	TextInput,
 	TouchableOpacity,
+	TextInput,
 	Image,
-	ImageBackground,
 	ScrollView,
-	Button
 } from "react-native";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { RadioButton } from "react-native-paper";
-import { FontAwesome } from "@expo/vector-icons";
+import React, { useState } from "react";
+import { firebase } from "../firebase/config";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { Feather } from "@expo/vector-icons";
-import { StatusBar } from "expo-status-bar";
-import moment from "moment";
-import CalendarPicker from "react-native-calendar-picker";
-import Modal from "react-native-modal"
-import style from "react-native-custom-calendars/src/calendar/header/style";
-import Calendar from "../../Components/Calendar";
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import ImageSlider from "../../Components/Imageslider";
 
 
-
-const HomeScreen = ({ navigation }) => {
-	const [checked, setChecked] = React.useState("first");
-	const [user, setUser] = useState("");
-	const [isModalVisible, setModalVisible] = useState(false);
-
-
-	
-	  
-
-	const auth = getAuth();
-	onAuthStateChanged(auth, user => {
-		if (user) {
-			// User is signed in, see docs for a list of available properties
-			// https://firebase.google.com/docs/reference/js/firebase.User
-			const uid = user.uid;
-			console.log(user.user);
-			// ...
-		} else {
-			// User is signed out
-			console.log("user is not signed in");
-			// ...
-		}
-	});
-
-	
-
-	const toggleModal = () => {
-		setModalVisible(!isModalVisible);
-	  };
+const HomeScreen = () => {
 	return (
-		<View style={styles.container}>	
-		<View style={styles.background}>
-		<Image source={require('../../assets/home.jpg')} 
-		  style={{ width:"100%", height: "100%" }}
+		<ScrollView style={styles.container}>
+			<View>
+				<View style={styles.nav}>
+					<Text>LOGO</Text>
+					<Feather name="phone" size={25} />
+				</View>
 
-		/>
+				<View style={styles.inputDisplay}>
+					<Image
+						source={require("../../assets/station.png")}
+						style={{ width: "10%", height: "60%", paddingLeft: 20 }}
+					/>
+					<TextInput
+						style={styles.input}
+						placeholderTextColor="#aaaaaa"
+						placeholder="Select from city"
+						underlineColorAndroid="transparent"
+						autoCapitalize="none"
+					/>
+				</View>
 
-<View style={styles.oneway}>
-	<Text style={styles.destineColor}>Where To ?</Text>
-					<View style={styles.user1}>
-						<View style={styles.wayIcon}>
-							<Text>One Way</Text>
-							<Feather name="chevron-down"size={30} color={"#fff"} />
-						</View>
+				<View style={styles.arrows}>
+					<Feather name="arrow-down" size={24} color={"#fff"} />
+					<Feather name="arrow-up" size={24} color={"#fff"} />
+				</View>
 
-						<View style={styles.user}>
-							<Feather name="user" size={30} color={"#fff"}/>
-							<Text>1</Text>
-						</View>
-					</View>
+				<View style={styles.inputDisplay}>
+					<Feather name="map-pin" size={30} color={"red"} />
+
+					<TextInput
+						style={styles.input}
+						placeholderTextColor="#aaaaaa"
+						placeholder="Select to city"
+						underlineColorAndroid="transparent"
+						autoCapitalize="none"
+					/>
+				</View>
+
+				<View>
+					<TouchableOpacity style={styles.searchBus}>
+						<Text style={styles.search}>SEARCH BUS</Text>
+					</TouchableOpacity>
+				</View>
+
+				<View style={styles.quicksearch}>
 					<View>
-						<TextInput
-							style={styles.input}
-							placeholderTextColor="#aaaaaa"
-							placeholder="City,Station ?"
-							underlineColorAndroid="transparent"
-							autoCapitalize="none"
-						/>
-
-						<View style={styles.arrows}>
-							<Feather name="arrow-down" size={24} color={"#fff"}/>
-							<Feather name="arrow-up" size={24} color={"#fff"}/>
-						</View>
-
-						<TextInput
-							style={styles.input}
-							placeholderTextColor="#aaaaaa"
-							placeholder="City,Station ?"
-							underlineColorAndroid="transparent"
-							autoCapitalize="none"
-						/>
+						<Text style={{ fontSize: 30, textAlign: "center" }}>
+							Why Bus-lite ?
+						</Text>
 					</View>
 
-
-
-
-						<View style={styles.callenderHolder}>
-							<View style={styles.dates} onPress={toggleModal}>
-								<Feather name="calendar" size={24}  />
-								<TextInput 
-									style={styles.calender}
-									placeholderTextColor="#aaaaaa"
-									placeholder="Departure date"
-									underlineColorAndroid="transparent"
-									autoCapitalize="none"
-									mode="contained"
-								/>
-							</View>
-
-							<View style={styles.dates}>
-								<Feather name="plus" size={24} />
-								<TextInput
-									style={styles.calender}
-									placeholderTextColor="#aaaaaa"
-									placeholder="Return Date"
-									underlineColorAndroid="transparent"
-									autoCapitalize="none"
-								/>
-							</View>
+					<View style={styles.whyUs}>
+						<View style={styles.whyImages}>
+						<Image
+							source={require("../../assets/comfort.png")}
+							style={{ width: 100, height: 100,padding:20}}
+						/>
 						</View>
-
-
-						
-						<View>
-							<View>
-								<Text style={styles.search}>Need a place to stay?</Text>
-							</View>
-							<TouchableOpacity style={styles.searchBus}>
-								<Text style={styles.search}>Search Bus</Text>
-							</TouchableOpacity>
-						</View>
-
-
-						<View style={{ flex: 1 }}>
-      <Button title="Show modal" onPress={toggleModal} />
-
-      <Modal isVisible={isModalVisible}>
-		<View>
-<Calendar/>
-<Button title="Hide modal" onPress={toggleModal} />
-
-	</View>		
-      </Modal>
-    </View>
-
-
-
-
+						<Text style={styles.mybusText}>COMFORT</Text>
+						<Text>
+							Our fleet of coaches is best -in-class and regularly
+							maintained.Super-comfortable seats and free WI-FI
+						</Text>
 					</View>
 
-		</View>
+					<View style={styles.whyUs} >
+						<View style={styles.whyImages}>
+						<Image
+							source={require("../../assets/clock.png")}
+							style={{ width: 100, height: 100, }}
+						/>
+						</View>
+
+						<Text style={styles.mybusText}>PANCTUALITY</Text>
+						<Text>We value your time and hence ,ensure on time departure</Text>
+					</View>
+
+					<View style={styles.whyUs}>
+						<View style={styles.whyImages}>
+						<Image
+							source={require("../../assets/price.png")}
+							style={{ width: 100, height: 100, paddingLeft: 20 }}
+						/>
+						</View>
+
+						<Text style={styles.mybusText}>PRICING</Text>
+						<Text>
+							Save money with unstapable pricing. We promise best value for your
+							money
+						</Text>
+					</View>
+
+					<View style={styles.whyUs}>
+						<View style={styles.whyImages}>
+						<Image
+							source={require("../../assets/convinient.png")}
+							style={{ width: 100, height: 100, paddingLeft: 20 ,borderRadius:5}}
+						/>
+						</View>
+						<Text style={styles.mybusText}>CONVINIENT</Text>
+						<Text>
+							With up-to-date and current bus schedules, helpful staff and
+							friendly on-site bus drivers,There isn't a thing that you need to
+							worry about while travelling with us{" "}
+						</Text>
+					</View>
+
+					<View >
+				<ImageSlider/>
+				</View>
+				
+				</View>
 
 				
-
-
-				</View>
+			</View>
+		</ScrollView>
 	);
 };
 
 export default HomeScreen;
 
 const styles = StyleSheet.create({
+	nav: {
+		backgroundColor: "#fff",
+		display: "flex",
+		flexDirection: "row",
+		justifyContent: "space-between",
+		padding: 20,
+		margin:10,
+		borderRadius: 5,
+
+	},
+	container: {
+		backgroundColor: "#0E8769",
+		height: "100%",
+	},
 	input: {
-		height: 48,
+		height: 30,
 		borderRadius: 5,
 		overflow: "hidden",
-		backgroundColor: "#e9ecef",
-		marginLeft: 30,
 		marginRight: 30,
 		paddingLeft: 16,
 		marginTop: 10,
 		marginBottom: 10,
+		width: "80%",
 	},
-	destineColor: {
-		color: "#fff",
-		fontSize:30
-	},
-
-	oneway: {
-		width: "100%",
-		borderTopLeftRadius: 30,
-		borderTopRightRadius: 30,
-		padding: 10,
-		backgroundColor: "#2346FF",
-		display: "flex",
-		flexDirection: "column",
-		position:"absolute",
-		top:"70%"
-	},
-	container: {
-		backgroundColor: "#2346FF",
-		height: "100%",
-	},
-	wayIcon: {
-		display: "flex",
+	inputDisplay: {
 		flexDirection: "row",
-	},
-	user: {
 		display: "flex",
-		flexDirection: "row",
 		alignItems: "center",
-	},
-	user1: {
-		display: "flex",
-		flexDirection: "row",
-		justifyContent: "space-between",
+		marginLeft: 30,
+		backgroundColor: "#fff",
+		marginTop: 20,
+		width: "80%",
+		alignItems: "center",
+		borderRadius: 5,
 	},
 	arrows: {
 		display: "flex",
 		flexDirection: "row",
-		backgroundColor: "#0E8769",
+		backgroundColor: "red",
 		width: 50,
 		alignSelf: "center",
 		borderRadius: 10,
-
-	},
-	calender: {
-		height: 20,
-		borderRadius: 5,
-		overflow: "hidden",
-		marginTop: 10,
-		marginBottom: 10,
-	},
-	callenderHolder: {
-		flexDirection: "row",
-		justifyContent: "space-around",
+		position: "absolute",
+		bottom: 50,
+		height: 50,
+		left: "100%",
 	},
 	searchBus: {
-		width: "50%",
+		width: "80%",
 		backgroundColor: "#e9ecef",
-		height: 48,
 		borderRadius: 5,
-		marginLeft: 30,
+		marginLeft: 10,
 		marginRight: 30,
-		paddingLeft: 16,
-		marginTop: 10,
+		marginTop: 20,
 		marginBottom: 10,
 		alignSelf: "center",
 	},
 	search: {
 		textAlign: "center",
-		paddingTop: 10,
+		padding: 15,
 	},
-	dates: {
-		display: "flex",
-		alignItems: "center",
-		flexDirection: "row",
-		width: "40%",
-		borderWidth: 1,
-		borderRadius: 10,
-		borderColor:"#fff"
-
-	},
-	calender1: {
+	quicksearch: {
 		backgroundColor: "#fff",
+		height: "100%",
+		borderTopLeftRadius: 30,
+		borderTopRightRadius: 30,
+		padding: 10,
+		marginTop:30
 	},
-	background:{
-		height:"50%",
-		position:"relative"
+	whyUs:{
+		alignItems:"center",
+		padding:20,
+		borderBottomColor:"darkgray",
+		borderBottomWidth: 1,
+	},
+	mybusText:{
+		fontWeight:"bold",
+		padding:20
+	},
+	whyImages:{
+		borderWidth:5,
+		padding:20,
+		borderRadius:100,
+		borderColor:"#0E8769"
+	},
+	gallery:{
+		borderRadius:10
 	}
-
 });

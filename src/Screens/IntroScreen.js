@@ -12,6 +12,7 @@ import {
   ScrollView,
 
 } from "react-native";
+import ImageSlider from "../../Components/Imageslider";
 // import { useNavigation } from '@react-navigation/native';
 import HomeScreen from "./HomeScreen";
 
@@ -51,7 +52,7 @@ function IntroScreen({navigation}) {
 				</View>
 
 
-      <View style={styles.wrap}>
+      {/* <View style={styles.wrap}>
         <ScrollView
           onScroll={({ nativeEvent }) => onChange(nativeEvent)}
           showsHorizontalScrollIndicator={false}
@@ -78,7 +79,12 @@ function IntroScreen({navigation}) {
             </Text>
           ))}
         </View>
-      </View>
+      </View> */}
+
+<View>
+<ImageSlider/>
+</View>
+
 
       <View>
         <Text style={styles.introText}>Welcome Aboard</Text>
@@ -108,7 +114,7 @@ function IntroScreen({navigation}) {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#2346FF",
+    backgroundColor: "#0E8769",
     height: "100%",
   },
   dotActive: {
@@ -205,7 +211,7 @@ const styles = StyleSheet.create({
     textAlign:"center",
     marginTop:30,
     fontSize:20,
-    backgroundColor:"#2346FF",
+    backgroundColor:"#0E8769",
     
   }
 });
