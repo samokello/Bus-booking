@@ -31,7 +31,7 @@
     "react-native-custom-calendars": "^1.2.3",
     "react-native-elements": "^3.4.2",
     "react-native-feather": "^1.1.2",
-    "react-native-gesture-handler": "~2.5.0",
+    "react-native-gesture-handler": "~2.7.0",
     "react-native-google-signin": "^2.1.1",
     "react-native-image-slider": "^1.1.5",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
