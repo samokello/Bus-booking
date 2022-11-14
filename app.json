@@ -7,10 +7,12 @@
     "icon": "./assets/adapt.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/station.png",
-      "resizeMode": "contain",
+      "image": "./assets/ttt.png",
+      "resizeMode": "stretch",
       "backgroundColor": "#0E8769",
-      "color":"#FFFFFF"
+      "color":"#FFFFFF",
+      "height": "100",
+      " width": "200" 
        },
     "updates": {
       "fallbackToCacheTimeout": 0

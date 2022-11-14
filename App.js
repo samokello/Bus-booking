@@ -5,9 +5,11 @@ import DrawerScreen from "./src/Screens/DrawerScreen";
 import Notifications from "./src/Screens/Notification";
 import Registerscreen from "./src/Screens/Registerscreen";
 import LoginScreen from "./src/Screens/LoginScreen";
-import CalendarScreen from "./src/Screens/Calendar";
 import AboutScreen from "./src/Screens/AboutScreen";
-
+import Availableveseats from "./src/Screens/Availbleseats";
+import BusesAvailabe from "./src/Screens/BusesAvailable";
+import HomeScreen from "./src/Screens/HomeScreen";
+import BusesResgistration from "./src/Screens/BusesAuth";
 
 const navigator = createStackNavigator(
   {
@@ -16,8 +18,11 @@ const navigator = createStackNavigator(
     Introduction:IntroScreen,
     Register:Registerscreen,
     Login:LoginScreen,
-    Calendar:CalendarScreen,
-    About:AboutScreen
+    About:AboutScreen,
+    Seats:Availableveseats,
+    Buses:BusesAvailabe,
+    Home:HomeScreen,
+    BuseRegister:BusesResgistration
   
    
   },
