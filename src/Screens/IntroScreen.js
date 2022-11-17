@@ -38,7 +38,7 @@ function IntroScreen({ navigation }) {
 				<View style={styles.touchableview}>
 					<TouchableOpacity
 						style={styles.register}
-						onPress={() => navigation.navigate("Register")}
+						onPress={() => navigation.navigate("Seats")}
 						title="register"
 					>
 						<Text style={styles.registerT}>Register</Text>

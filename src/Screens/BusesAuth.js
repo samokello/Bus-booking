@@ -28,6 +28,7 @@ const BusesResgistration = () => {
 		toroute: "",
 		image: "",
 		price: "",
+		date: "",
 	});
 	async function Register() {
 		try {
@@ -57,7 +58,7 @@ const BusesResgistration = () => {
 
 	return (
 		<ScrollView>
-			<View>
+			<View style={styles.container1}>
 				<View style={styles.block}>
 					<Text
 						style={{
@@ -150,6 +151,16 @@ const BusesResgistration = () => {
 							setFormData(prev => ({ ...prev, time: text }))
 						}
 					/>
+						<TextInput
+						style={styles.input}
+						placeholderTextColor="#AAAAAA"
+						placeholder="Date of travel"
+						underlineColorAndroid="transparent"
+						autoCapitalize="none"
+						onChangeText={text =>
+							setFormData(prev => ({ ...prev, date: text }))
+						}
+					/>
 
 					<TextInput
 						style={styles.input}
@@ -215,8 +226,12 @@ const styles = StyleSheet.create({
 	curve: {
 		backgroundColor: "#0E8769",
 		height: "10%",
-		borderRadius: 100,
+		borderRadius:20,
 		marginTop: -25,
+		width:"100%"
 	},
+	container1:{
+		marginBottom:50
+	}
 });
 export default BusesResgistration;

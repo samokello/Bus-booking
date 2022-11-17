@@ -10,6 +10,11 @@ import Availableveseats from "./src/Screens/Availbleseats";
 import BusesAvailabe from "./src/Screens/BusesAvailable";
 import HomeScreen from "./src/Screens/HomeScreen";
 import BusesResgistration from "./src/Screens/BusesAuth";
+import Mmm from "./src/Screens/Mmm";
+import BusContext from "./context/BusContext";
+
+
+
 
 const navigator = createStackNavigator(
   {
@@ -22,7 +27,8 @@ const navigator = createStackNavigator(
     Seats:Availableveseats,
     Buses:BusesAvailabe,
     Home:HomeScreen,
-    BuseRegister:BusesResgistration
+    BuseRegister:BusesResgistration,
+    Mmm:Mmm
   
    
   },
@@ -43,4 +49,6 @@ const navigator = createStackNavigator(
     },
   }
 );
+
+
 export default createAppContainer(navigator);

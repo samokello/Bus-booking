@@ -19,6 +19,8 @@ import BusesAvailabe from "./BusesAvailable";
 import Availableveseats from "./Availbleseats";
 import Terms from "./Terms";
 import About from "./AboutScreen";
+import Mmm from "./Mmm";
+import BusContext from "../../context/BusContext";
 
 function CustomDrawerContent(props) {
 	return (
@@ -32,6 +34,7 @@ const Drawer = createDrawerNavigator();
 
 function MyDrawer() {
 	return (
+		<BusContext>
 		<Drawer.Navigator
 			useLegacyImplementation
 			drawerContent={props => <CustomDrawerContent {...props} />}
@@ -43,17 +46,19 @@ function MyDrawer() {
 			<Drawer.Screen name="Register" component={Registerscreen} />
 
 			<Drawer.Screen name="Login" component={LoginScreen} />
-			<Drawer.Screen name="My Trips" component={MytripScreen} />
-			<Drawer.Screen name="My Buses" component={BusesResgistration} />
+			<Drawer.Screen name="Pay Here" component={MytripScreen} />
+			<Drawer.Screen name="Register Buses" component={BusesResgistration} />
 			<Drawer.Screen name="Buses Available" component={BusesAvailabe} />
 			<Drawer.Screen name="Terms and Conditions" component={Terms} />
 			<Drawer.Screen name="About Us" component={About} />
 			<Drawer.Screen name="Book Seats" component={Availableveseats} />
+			<Drawer.Screen name="mmm" component={Mmm} />
 
 
 
 
 		</Drawer.Navigator>
+		</BusContext>
 	);
 }
 

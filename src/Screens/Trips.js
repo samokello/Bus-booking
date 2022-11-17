@@ -1,15 +1,14 @@
 import React from "react";
-import { View,Text,Button } from "react-native";
+import { View, Text, Button, StyleSheet } from "react-native";
 import { Feather } from "react-native-feather";
-
+import Mpesa from "../../Components/M-pesa";
 
 function MytripScreen({ navigation }) {
-      return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Text>Hello from my trips</Text>
-          
-        </View>
-      );
-    }
+	return (
+		<View>
+			<Mpesa />
+		</View>
+	);
+}
 
-    export default MytripScreen;
+export default MytripScreen;
