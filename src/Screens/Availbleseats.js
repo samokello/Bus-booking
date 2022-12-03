@@ -1,123 +1,126 @@
 import React, { useEffect, useState, useContext } from "react";
 import {
-	Text,
-	View,
-	StyleSheet,
-	ScrollView,
-	TouchableOpacity,
-	Image,
-	TouchableHighlight,
+  Text,
+  View,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  Image,
+  TouchableHighlight,
 } from "react-native";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
 import { Feather } from "@expo/vector-icons";
 import BusesAvailabe from "./BusesAvailable";
-import {Context} from "../../context/BusContext";
+import { Context } from "../../context/BusContext";
+import Apploader from "../../Components/Apploader";
+import Seat32 from "../../Components/Seat32";
+import Seat44 from "../../Components/Seat44";
 
 const Availableveseats = ({ navigation }) => {
-	const [fetchData, setFetchData] = useState([]);
-	const [isPress, setIsPress] = React.useState(false);
+  const [fetchData, setFetchData] = useState([]);
+  const [isPress, setIsPress] = React.useState(false);
 
-	const {busState} = useContext(Context);
-	const [singleBus, setSingleBus] = busState;
-	
+  const { busState, loader } = useContext(Context);
+  const [singleBus, setSingleBus] = busState;
+  const [loading, setLoading] = loader;
 
-	useEffect(() => {
-		const fetchQuotes = async () => {
-			const querySnapshot = await getDocs(collection(db, "Buses"));
-			querySnapshot.forEach(doc => {
-				console.log(doc.id)
-				setFetchData(prev => [...prev, doc.data()]);
-			});
-		};
-		fetchQuotes();
-	}, []);
-	useEffect(() => {}, [fetchData]);
+  useEffect(() => {
+    const fetchQuotes = async () => {
+      const querySnapshot = await getDocs(collection(db, "Buses"));
 
-	const HundleSeats = (item) => {
-		if (item.seats === 0 || item.seats === 1) { 
-			alert("aww, I do not see any seats left");
-		 } else { 
-			alert("You got yourself a seat"); 
-		 }	};
+      querySnapshot.forEach((doc) => {
+        // console.log(doc.id);
+        setFetchData((prev) => [...prev, doc.data()]);
+      });
 
-	return (
-		<ScrollView style={styles.container}>
-{console.log(singleBus)}
-			<View>
-				<View>
-					<Image
-						source={require("../../assets/steering.png")}
-						style={{ width: 50, height: 50, margin: 10, alignSelf: "flex-end" }}
-					/>
-				</View>
-				{fetchData.map((item, index) => {
-					if(singleBus === fetchData.indexOf(item)){
-					let seats = [];
-					for (let i = 1; i <= item.seats; i++) {
-						seats.push(i);
-					}
-					return (
-						<View style={styles.list}>
-							{seats.map((nums, index) => {
+      if (querySnapshot._firestore) {
+        setLoading(false);
+      }
+    };
+    fetchQuotes();
+  }, []);
+  useEffect(() => {}, [fetchData]);
 
-	return (
-		<View style={styles.item}>
-			<TouchableOpacity onPress={HundleSeats}>
-				<Image
-					source={require("../../assets/chair.png")}
-					style={{
-						width: 30,
-						height: 30,
-						margin: 10,
-					}}
-				/>
-
-				<Text key={item}>{nums}</Text>
-			</TouchableOpacity>
-		</View>
-	);
-})}
-</View>
-);
-}
-				})}
-			</View>
-		</ScrollView>
-	);
+  return (
+    <>
+      <ScrollView>
+        <View>
+          {fetchData.map((item, index) => {
+            if (singleBus === fetchData.indexOf(item)) {
+              // console.log(item.seats);
+              if (item.seats == 32) {
+                return <Seat32 />;
+              } else {
+                return <Seat44 />;
+              }
+            }
+          })}
+        </View>
+      </ScrollView>
+      {loading && <Apploader />}
+    </>
+  );
 };
 
 export default Availableveseats;
-
 const styles = StyleSheet.create({
-	container: {
-		backgroundColor: "#0E8769",
-		width: "80%",
-		alignSelf: "center",
-		marginTop: 20,
-		borderRadius: 5,
-	},
-	list: {
-		flexDirection: "row",
-		flexWrap: "wrap",
-	},
-	item: {
-		backgroundColor: "#fff",
-		backgroundColor: "#fff",
-		padding: 2,
-		margin: 5,
-		display: "flex",
-		flexDirection: "row",
-		alignItems: "center",
-		width: "30%",
-		flexWrap: "wrap",
-		justifyContent: "space-around",
-		borderRadius: 5,
-	},
-	btnPress: {
-		borderColor: "blue",
-		borderWidth: 1,
-		height: 30,
-		width: 100,
-	},
+  container: {
+    backgroundColor: "#0E8769",
+    width: "90%",
+    alignSelf: "center",
+    marginTop: 20,
+    borderRadius: 5,
+  },
+  list: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  item: {
+    backgroundColor: "#fff",
+    margin: 5,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    width: "20%",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
+    borderRadius: 5,
+  },
+  seats: {
+    display: "flex",
+    justifyContent: "space-around",
+    flexDirection: "row",
+    padding: 5,
+    alignItems: "center",
+  },
+  seat1: {
+    backgroundColor: "#fff",
+    padding: 5,
+    borderRadius: 5,
+  },
+  seat2: {
+    backgroundColor: "#0E8769",
+    padding: 5,
+    borderRadius: 5,
+  },
+  seat3: {
+    backgroundColor: "green",
+    padding: 5,
+    borderRadius: 5,
+  },
+  proceed: {
+    backgroundColor: "#0E8769",
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 10,
+    width: "90%",
+    alignSelf: "center",
+  },
+  seatSelected: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
 });

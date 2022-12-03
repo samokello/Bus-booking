@@ -20,16 +20,15 @@ const image = {
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loginPending, setLoginPending] = useState(false);
 
   const loginUser = async (email, password) => {
     try {
       const res = await firebase
         .auth()
         .signInWithEmailAndPassword(email, password);
-      setLoginPending(false);
+        alert("Logged in successfully")
 
-      navigation.navigate("Home");
+      navigation.navigate("Drawer");
     } catch (error) {
       alert(error.message);
     }
@@ -37,8 +36,6 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <>
-      {loginPending ? <Apploader /> : <Text>nnn</Text>}
-
       <View style={styles.container}>
         <ImageBackground source={image} resizeMode="cover" style={styles.image}>
           <KeyboardAwareScrollView
@@ -84,23 +81,22 @@ const LoginScreen = ({ navigation }) => {
               <View style={styles.footerView}>
                 <Text style={styles.text}>
                   Don't have an account?{" "}
+                  
                   <Text
                     onPress={() => navigation.navigate("Register")}
                     style={styles.footerLink}
                   >
                     Sign up
                   </Text>
+
                 </Text>
               </View>
             </View>
           </KeyboardAwareScrollView>
         </ImageBackground>
       </View>
-
-      {/* <Apploader /> */}
     </>
   );
-  // }
 };
 
 export default LoginScreen;

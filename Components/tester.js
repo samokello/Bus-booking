@@ -19,7 +19,14 @@ import moment from "moment";
 import CalendarPicker from "react-native-calendar-picker";
 import { Context } from "../../context/BusContext";
 
+const { busState, loader, busData, search } = useContext(Context);
 export let searchData;
+
+
+
+
+
+
 
 export default class HomeScreen extends Component {
   constructor(props) {
@@ -28,6 +35,7 @@ export default class HomeScreen extends Component {
       selectedStartDate: new Date(),
       from:"",
       to:"",
+      date:"",
       status: false,
     };
     this.onDateChange = this.onDateChange.bind(this);
@@ -39,7 +47,9 @@ export default class HomeScreen extends Component {
   }
 
 
-  
+  searchData = ()=>{
+    return this.state
+  }
 
   Showcalendar = () => {
     if (this.state.status == true) {
@@ -50,10 +60,7 @@ export default class HomeScreen extends Component {
   };
 
   searchBuses=()=>{
- 
-    searchData=this.state
-    this.props.navigation.navigate("Buses Available")
-    
+const date = new Date(this.state.selectedStartDate)
 
    
   }
@@ -115,7 +122,7 @@ export default class HomeScreen extends Component {
                 onPress={this.Showcalendar}
                 onChangeText={text=>this.setState({date:text})}
               >
-                <Text>Date:{moment(startDate).format("DD/MM/YYYY")}</Text>
+                <Text>Date:{moment(startDate).format("MM/DD/YYYY")}</Text>
               </TextInput>
             </TouchableOpacity>
           </View>
@@ -143,9 +150,6 @@ export default class HomeScreen extends Component {
               <Text style={styles.search}> SEARCH BUS</Text>
             </TouchableOpacity>
           </View>
-
-
-
 
           <View style={styles.quicksearch}>
             <View>
@@ -225,8 +229,6 @@ export default class HomeScreen extends Component {
               <ImageSlider />
             </View>
           </View>
-
-          
         </View>
       </ScrollView>
     );

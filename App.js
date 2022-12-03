@@ -12,43 +12,34 @@ import HomeScreen from "./src/Screens/HomeScreen";
 import BusesResgistration from "./src/Screens/BusesAuth";
 import Mmm from "./src/Screens/Mmm";
 import BusContext from "./context/BusContext";
-
-
-
+import BottomSheet from "./src/Screens/BottomSheet";
 
 const navigator = createStackNavigator(
   {
-    Drawer:DrawerScreen,
-    Notification:Notifications,
-    Introduction:IntroScreen,
-    Register:Registerscreen,
-    Login:LoginScreen,
-    About:AboutScreen,
-    Seats:Availableveseats,
-    Buses:BusesAvailabe,
-    Home:HomeScreen,
-    BuseRegister:BusesResgistration,
-    Mmm:Mmm
-  
-   
+    Drawer: DrawerScreen,
+    Notification: Notifications,
+    Introduction: IntroScreen,
+    Register: Registerscreen,
+    Login: LoginScreen,
+    About: AboutScreen,
+    Seats: Availableveseats,
+    Buses: BusesAvailabe,
+    Home: HomeScreen,
+    BuseRegister: BusesResgistration,
+    Mmm: Mmm,
+    Bottom: BottomSheet,
   },
 
   {
     initialRouteName: "Introduction",
     defaultNavigationOptions: {
-      title: "Intro Screen",
-      headerShown:false,
-      headerStyle: {
-        backgroundColor: "#0000FF",
-      },
-      headerTintColor: "#fff",
+      headerShown: false,
+      headerStyle: {},
       headerBackTitleStyle: {
         fontWeight: "bold",
-      
       },
     },
   }
 );
-
 
 export default createAppContainer(navigator);

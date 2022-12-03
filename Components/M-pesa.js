@@ -1,90 +1,113 @@
-import React, { useState } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 
 import {
-	Text,
-	View,
-	TouchableOpacity,
-	StyleSheet,
-	TextInput,
+  Text,
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  TextInput,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
+import { Context } from "../context/BusContext";
 
 const Mpesa = () => {
-	const [mpesaData, setMpesaData] = useState({
-		phone: "",
-		amount: "",
-	});
+  const {  busState, loader, busData, total } = useContext(Context);
 
-	const mpesaHandle = () => {
-		const url = "https://bus-lite-mpesa.onrender.com/api/stk/push";
+  const [totalPrice, setTotalPrice] = total;
+  const [singleBus, setSingleBus] = busState;
 
-		const options = {
-			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify(mpesaData),
-		};
+  const [mpesaData, setMpesaData] = useState({
+    phone: "",
+    amount: totalPrice,
+  });
 
-		fetch(url, options)
-			.then(res => res.json())
-			.then(data => setMpesaData(data));
-	};
+  const mpesaHandle = () => {
+    const url = "https://bus-lite-mpesa.onrender.com/api/stk/push";
 
-	return (
-		<View style={[StyleSheet.absoluteFillObject, styles.container]}>
-			<TextInput
-				style={styles.input}
-				placeholderTextColor="#AAAAAA"
-				placeholder="Enter Number"
-				underlineColorAndroid="transparent"
-				autoCapitalize="none"
-				onChangeText={text => setMpesaData(prev => ({ ...prev, phone: text }))}
-			/>
+    const options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(mpesaData),
+    };
 
-			<TextInput
-				style={styles.input}
-				placeholderTextColor="#AAAAAA"
-				placeholder="Enter Amount"
-				underlineColorAndroid="transparent"
-				autoCapitalize="none"
-				onChangeText={text => setMpesaData(prev => ({ ...prev, amount: text }))}
-			/>
+    fetch(url, options)
+      .then((res) => res.json())
+      .then((data) => {
+        setMpesaData(data);
+      });
+  };
 
-			<TouchableOpacity style={styles.button} onPress={mpesaHandle}>
-				<Text style={styles.buttonTitle}>Pay</Text>
-			</TouchableOpacity>
+  return (
+    <View style={styles.container}>
 
-			<Feather name=""  size={30}/>
-		</View>
-	);
+
+      <View style={styles.pesaText}>
+        <Text style={styles.payText}>Do you want to pay <Text style={styles.ksh}>Ksh {totalPrice}</Text></Text>
+      </View>
+
+      <TextInput
+        style={styles.input}
+        placeholderTextColor="#AAAAAA"
+        placeholder="Enter mobile number"
+        underlineColorAndroid="transparent"
+        autoCapitalize="none"
+        onChangeText={(text) =>
+          setMpesaData((prev) => ({ ...prev, phone: text }))
+        }
+      />
+
+      <TouchableOpacity style={styles.button} onPress={mpesaHandle}>
+        <Text style={styles.buttonTitle}>Pay</Text>
+      </TouchableOpacity>
+
+      <Feather name="" size={30} />
+    </View>
+  );
 };
 
 export default Mpesa;
 
 const styles = StyleSheet.create({
-	container:{
-		flex: 1,
-		alignSelf:"center",
-		marginTop:"50%"
-	},
-	input: {
-		height: 48,
-		borderRadius: 50,
-		overflow: "hidden",
-		backgroundColor: "white",
-		marginTop: 30,
-		marginBottom: 10,
-		marginLeft: 30,
-		marginRight: 30,
-		paddingLeft: 16,
-	},
-	button: {
-		backgroundColor: "#0E8769",
-		marginLeft: 30,
-		marginRight: 30,
-		marginTop: 20,
-		height: 48,
-		borderRadius: 5,
-		alignItems: "center",
-		justifyContent: "center",
-	},
+  container: {
+    width: "100%",
+    backgroundColor: "green",
+    alignSelf: "center",
+    height: "80%",
+    padding: 10,
+    borderRadius: "5px",
+  },
+  input: {
+    height: 48,
+    borderRadius: 50,
+    overflow: "hidden",
+    margin: 30,
+    paddingLeft: 16,
+    backgroundColor: "lightgrey",
+  },
+  button: {
+    backgroundColor: "#0E8769",
+    marginLeft: 30,
+    marginRight: 30,
+    marginTop: 20,
+    height: 48,
+    borderRadius: 50,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonTitle: {
+    color: "#FFFF",
+    fontWeight: "bold",
+  },
+  pesaText: {
+    backgroundColor: "#fff",
+    padding: 10,
+  },
+  payText: {
+    fontWeight: "bold",
+    fontSize: 20,
+	textAlign: "center"
+  },
+  ksh:{
+	color:"green"
+  }
 });

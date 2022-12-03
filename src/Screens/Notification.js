@@ -1,10 +1,11 @@
 import React from "react";
 import { View,Text,Button } from "react-native";
+import Fouty4Seater from "../../Components/Seat44";
 
 function Notifications() {
       return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Text>Notifications Screen</Text>
+          <Fouty4Seater/>
           
         </View>
       );

@@ -21,6 +21,7 @@ import Terms from "./Terms";
 import About from "./AboutScreen";
 import Mmm from "./Mmm";
 import BusContext from "../../context/BusContext";
+import BottomSheet from "../Screens/BottomSheet";
 
 function CustomDrawerContent(props) {
 	return (
@@ -53,6 +54,8 @@ function MyDrawer() {
 			<Drawer.Screen name="About Us" component={About} />
 			<Drawer.Screen name="Book Seats" component={Availableveseats} />
 			<Drawer.Screen name="mmm" component={Mmm} />
+			<Drawer.Screen name="Bottom Sheet" component={BottomSheet} />
+
 
 
 

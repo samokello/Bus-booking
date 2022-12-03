@@ -12,82 +12,116 @@ import { collection, getDocs } from "firebase/firestore";
 import { db } from "../../firebase";
 import { Feather } from "@expo/vector-icons";
 import { Context } from "../../context/BusContext";
+import Apploader from "../../Components/Apploader";
+import HomeScreen, { searchData } from "../Screens/HomeScreen";
+import { Home } from "react-native-feather";
+import moment from "moment"
 
 const BusesAvailabe = ({ navigation }) => {
-  const [fetchData, setFetchData] = useState([]);
-  const [loading, setLoading] = useState(true);
 
 
-	const {busState} = useContext(Context);
-	const [singleBus, setSingleBus] = busState;
+  const {busState, loader, busData} = useContext(Context)
+  const [singleBus, setSingleBus] = busState;
+  const [loading, setLoading] = loader;
+  const [fetchData,setFetchData] = busData;
+  
 
   useEffect(() => {
     const fetchQuotes = async () => {
       const querySnapshot = await getDocs(collection(db, "Buses"));
       querySnapshot.forEach((doc) => {
-        console.log(doc.id);
         setFetchData((prev) => [...prev, doc.data()]);
       });
+
+      if (querySnapshot._firestore) {
+        setLoading(false);
+      }
     };
     fetchQuotes();
+
   }, []);
 
-  useEffect(() => {}, [fetchData]);
+  useEffect(() => {
 
-  
+    const date = moment(new Date(searchData.selectedStartDate)).format("DD/MM/YYYY")
+
+    console.log(date);
+    fetchData.find(item=>{
+
+      if(item.route.toLowerCase().trim() == searchData.from.toLowerCase().trim() && item.toroute.toLowerCase().trim() == searchData.to.toLowerCase().trim() && item.date == date)  {
+  console.log(item)
+      }
+    })
+
+
+  }, []);
+
+
+
   return (
-    <ScrollView style={styles.container}>
-      <Text>Click the buses for booking</Text>
-      
+    <>
+      <ScrollView style={styles.container}>
+        <Text style={styles.bookingText}>Pick a Bus.</Text>
+
         {fetchData.map((item, index) => {
-			console.log(fetchData.indexOf(item));
-			
-          return (
-			<TouchableOpacity onPress={() => {
-				navigation.navigate("Book Seats")
-				setSingleBus(index)
-				}}>
-            <View style={styles.container2} key={index}>
-              <View>
-                <View style={styles.root}>
-                  <Text key={item.route} style={styles.destinText1}>
-                    {item.route}
-                  </Text>
+const date = moment(new Date(searchData.selectedStartDate)).format("DD/MM/YYYY")
+          if(item.route.toLowerCase().trim() == searchData.from.toLowerCase().trim() && item.toroute.toLowerCase().trim() == searchData.to.toLowerCase().trim() && item.date == date) {
 
-                  <Feather name="arrow-right" size={30} color="#fff" />
-
-                  <Text key={item.toroute} style={styles.destinText1}>
-                    {item.toroute}
-                  </Text>
-                </View>
-
-                <View style={styles.container3}>
-                  <View style={styles.buses}>
-                    <Image style={styles.image} source={{ uri: item.image }} />
-                  </View>
+            return (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("Book Seats");
+                  setSingleBus(index);
+                }}
+              >
+                <View style={styles.container2} key={index}>
                   <View>
-                    <Text key={item.busBrand} style={styles.bookText1}>
-                      Bus: {item.busBrand}
-                    </Text>
-                    <Text key={item.seats} style={styles.bookText1}>
-                      Total seats:{item.seats}
-                    </Text>
-
-                    <Text key={item.time} style={styles.bookText1}>
-                      Time:{item.time}
-                    </Text>
-                    <Text key={item.price} style={styles.bookText1}>
-                      Ksh:{item.price}
-                    </Text>
+                    <View style={styles.root}>
+                      <Text key={item.route} style={styles.destinText1}>
+                        {item.route}
+                      </Text>
+  
+                      <Feather name="arrow-right" size={30} color="#fff" />
+  
+                      <Text key={item.toroute} style={styles.destinText1}>
+                        {item.toroute}
+                      </Text>
+                    </View>
+  
+                    <View style={styles.container3}>
+                      <View style={styles.buses}>
+                        <Image
+                          style={styles.image}
+                          source={{ uri: item.image }}
+                        />
+                      </View>
+                      <View>
+                        <Text key={item.busBrand} style={styles.bookText1}>
+                          Bus: {item.busBrand}
+                        </Text>
+                        <Text key={item.seats} style={styles.bookText1}>
+                          Total seats:{item.seats}
+                        </Text>
+  
+                        <Text key={item.time} style={styles.bookText1}>
+                          Time:{item.time}
+                        </Text>
+                        <Text key={item.price} style={styles.bookText1}>
+                          Ksh:{item.price}
+                        </Text>
+                      </View>
+                    </View>
                   </View>
                 </View>
-              </View>
-            </View>
-			</TouchableOpacity>
+              </TouchableOpacity>
+            );
+          }
 
-          );
         })}
-    </ScrollView>
+      </ScrollView>
+      {loading && <Apploader />}
+
+    </>
   );
 };
 
@@ -152,7 +186,7 @@ const styles = StyleSheet.create({
   image: {
     width: "100%",
     height: 125,
-    borderRadius: 10,
+    
   },
   container3: {
     display: "flex",
@@ -165,8 +199,12 @@ const styles = StyleSheet.create({
     color: "#fff",
   },
   buses: {
-    width: "55%",
-    backgroundColor: "#fff",
-    borderRadius: 10,
+    width: "70%",
+    padding:10
+  },
+  bookingText: {
+    fontSize: 30,
+    fontWeight: "bold",
+    padding: 5,
   },
 });
