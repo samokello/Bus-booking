@@ -17,7 +17,7 @@
     "@react-navigation/native-stack": "^6.8.0",
     "@rpldy/native-uploady": "^1.2.0",
     "base-64": "^1.0.0",
-    "expo": "~46.0.9",
+    "expo": "~49.0.0",
     "expo-image-picker": "^13.3.1",
     "expo-status-bar": "~1.4.0",
     "firebase": "^9.10.0",
