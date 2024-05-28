@@ -30,7 +30,7 @@
     "npm": "^8.19.2",
     "react": "^18.3.0-next-d1e35c703-20221110",
     "react-dom": "^18.3.0-next-d1e35c703-20221110",
-    "react-native": "0.69.6",
+    "react-native": "0.71.0",
     "react-native-app-intro": "^1.1.5",
     "react-native-app-intro-slider": "^4.0.4",
     "react-native-calendar-picker": "^7.1.2",
