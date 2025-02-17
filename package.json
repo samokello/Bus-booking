@@ -15,7 +15,7 @@
     "@react-navigation/drawer": "^6.5.0",
     "@react-navigation/native": "^6.0.13",
     "@react-navigation/native-stack": "^6.8.0",
-    "@rpldy/native-uploady": "^1.2.0",
+    "@rpldy/native-uploady": "^1.9.1",
     "base-64": "^1.0.0",
     "expo": "~46.0.9",
     "expo-image-picker": "^13.3.1",
